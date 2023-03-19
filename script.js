@@ -51,8 +51,9 @@ class CalendarYear {
   }
 }
 
-const calendar = new CalendarYear('2023');
 
+
+function codeObsidian(calendar) {
 let str = `
 const YEAR = new Map();
 
@@ -103,7 +104,27 @@ ${calendar.getCalendarMarkdown(11)}
 YEAR.set(12, \`
 ${calendar.getCalendarMarkdown(12)}
 \`)
-`;
+  `;
+
+return str;
+}
+
+const currentDate = new Date().getFullYear();
+const calendar = new CalendarYear(`${currentDate}`);
 
 const calendarHTML = document.querySelector("#calendar");
-calendarHTML.innerHTML = str;
+calendarHTML.innerHTML = codeObsidian(calendar);
+
+const inputYear = document.querySelector('#input-year');
+inputYear.value = currentDate;
+
+const btnGenerate = document.querySelector('#btn-generate');
+btnGenerate.addEventListener('click', event => {
+  event.preventDefault();
+  const year = inputYear.value;
+  if(year.match(/\d{4}/) && year.length === 4) {
+    const calendar = new CalendarYear(year);
+    calendarHTML.innerHTML = codeObsidian(calendar);
+  }
+  return 'null';
+});
