@@ -19,13 +19,17 @@ class CalendarYear {
   }
 
   #getWikiLink() {
-    return `[${this.#getAliasFile()}](${this.#getNameFile()})`
+    const aliasFile = this.#getAliasFile();
+    if (aliasFile < 10) {
+      return ` [${this.#getAliasFile()}](${this.#getNameFile()})`;
+    }
+    return `[${this.#getAliasFile()}](${this.#getNameFile()})`;
   }
 
   getCalendarMarkdown(month) {
     month = --month;
 
-    let table = `|  пн  |  вт  |  ср  |  чт  |  пт  |  сб  |  вс  |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |`;
+    let table = `|        пн        |        вт        |        ср        |        чт        |        пт        |        сб        |        вс        |\n| :--------------: | :--------------: | :--------------: | :--------------: | :--------------: | :--------------: | :--------------: |`;
     for (let cell = 0; cell < 6; cell++) {
       table += '\n|';
       for (let day = 1; day < 8; day++) {
@@ -38,13 +42,10 @@ class CalendarYear {
           table += ` ${this.#getWikiLink()} |`
           this.date.setDate(1 + this.date.getDate());
         } else {
-          table += '      |'
+          table += '                  |'
         }
       }
     }
-
-    // this.date.setDate(1);
-    // this.date.setMonth(++month);
 
     return table;
   }
@@ -52,7 +53,6 @@ class CalendarYear {
 
 const calendar = new CalendarYear('2023');
 
-const calendarHTML = document.querySelector("#calendar");
 let str = `
 const YEAR = new Map();
 
@@ -105,6 +105,5 @@ ${calendar.getCalendarMarkdown(12)}
 \`)
 `;
 
-
-
+const calendarHTML = document.querySelector("#calendar");
 calendarHTML.innerHTML = str;
