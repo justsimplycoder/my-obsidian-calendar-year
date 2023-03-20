@@ -1,0 +1,7 @@
+#input-year {
+	border: 1px solid;
+	padding: 2px 4px;
+}
+#input-year.is-error {
+	border-color: red;
+}

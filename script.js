@@ -51,8 +51,6 @@ class CalendarYear {
   }
 }
 
-
-
 function codeObsidian(calendar) {
 let str = `
 const YEAR = new Map();
@@ -123,8 +121,12 @@ btnGenerate.addEventListener('click', event => {
   event.preventDefault();
   const year = inputYear.value;
   if(year.match(/\d{4}/) && year.length === 4) {
+    inputYear.classList.remove('is-error');
     const calendar = new CalendarYear(year);
     calendarHTML.innerHTML = codeObsidian(calendar);
+    return true;
   }
-  return 'null';
+  inputYear.classList.add('is-error');
+  calendarHTML.innerHTML = 'Ошибка! \nГод введён неверно.'
+  return false;
 });
