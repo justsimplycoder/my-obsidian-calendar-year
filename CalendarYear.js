@@ -1,6 +1,14 @@
 class CalendarYear {
   constructor(year) {
-    this.date = new Date(year);
+    this.date = year;
+  }
+
+  get date() {
+    return this._date;
+  }
+
+  set date(year) {
+    this._date = new Date(`${year}`);
   }
 
   #getNameFile() {
@@ -20,10 +28,11 @@ class CalendarYear {
 
   #getWikiLink() {
     const aliasFile = this.#getAliasFile();
+    const nameFile = this.#getNameFile();
     if (aliasFile < 10) {
-      return ` [${this.#getAliasFile()}](${this.#getNameFile()})`;
+      return ` [${aliasFile}](${nameFile})`;
     }
-    return `[${this.#getAliasFile()}](${this.#getNameFile()})`;
+    return `[${aliasFile}](${nameFile})`;
   }
 
   getCalendarMarkdown(month) {
