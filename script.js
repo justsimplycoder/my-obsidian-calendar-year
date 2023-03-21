@@ -26,12 +26,6 @@ btnGenerate.addEventListener('click', event => {
 
 const btnCopyCode = document.querySelector('#btn-copy-code');
 btnCopyCode.addEventListener('click', () => {
-  let range = new Range();
-
-  range.setStartBefore(calendarHTML)
-  range.setEndAfter(calendarHTML);
-
-  document.getSelection().addRange(range);
-
+  document.getSelection().setBaseAndExtent(calendarHTML, 0, calendarHTML, calendarHTML.childNodes.length);
   document.execCommand("copy");
 });
