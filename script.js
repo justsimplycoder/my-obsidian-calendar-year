@@ -12,7 +12,6 @@ calendarHTML.innerHTML = markdownFile(calendar);
 
 const btnGenerate = document.querySelector('#btn-generate');
 btnGenerate.addEventListener('click', event => {
-  event.preventDefault();
   const year = inputYear.value;
   if(year.match(/\d{4}/) && year.length === 4) {
     inputYear.classList.remove('is-error');
@@ -23,4 +22,16 @@ btnGenerate.addEventListener('click', event => {
   inputYear.classList.add('is-error');
   calendarHTML.innerHTML = 'Ошибка! \nГод введён неверно.'
   return false;
+});
+
+const btnCopyCode = document.querySelector('#btn-copy-code');
+btnCopyCode.addEventListener('click', () => {
+  let range = new Range();
+
+  range.setStartBefore(calendarHTML)
+  range.setEndAfter(calendarHTML);
+
+  document.getSelection().addRange(range);
+
+  document.execCommand("copy");
 });
